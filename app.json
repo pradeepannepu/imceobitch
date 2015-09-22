@@ -1,21 +1,20 @@
 {
-  "name": "Slackin",
-  "description": "Let people invite themselves to your Slack",
-  "logo": "https://i.imgur.com/odDO1Fx.png",
-  "repository": "https://github.com/rauchg/slackin",
-  "keywords": ["node", "slack"],
+  "name": "Slack Invite Automation",
+  "description": "A tiny web application to invite a user to slack team.",
+  "repository": "https://github.com/outsideris/slack-invite-automation",
+  "keywords": ["node", "slack", "invite"],
   "env": {
-    "SLACK_SUBDOMAIN": {
-      "description": "Your Slack's subdomain (**this**.slack.com)",
-      "required": true
+    "COMMUNITY_NAME": {
+      "description": "Your team name",
+      "value": "YOUR TEAM NAME"
     },
-    "SLACK_API_TOKEN": {
-      "description": "A Slack API token (find it on https://api.slack.com/web)",
-      "required": true
+    "SLACK_URL": {
+      "description": "Your slack url(ex: socketio.slack.com)",
+      "value": "YOUR-TEAM.slack.com"
     },
-    "SLACK_CHANNELS": {
-      "description": "Comma-separated list of single guest channels to invite them to (leave blank for a normal, all-channel invite). In order to make this work, you have to have a paid account. You'll only be able to invite as many people as your number of paying members times 5.",
-      "required": false
+    "SLACK_TOKEN": {
+      "description": "access token of slack, You can generate it in https://api.slack.com/web#auth",
+      "value": ""
     }
   }
 }
