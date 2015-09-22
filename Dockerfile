@@ -22,7 +22,7 @@ RUN \
   apt-get -qq update && \
   apt-get -qq -y install ruby2.2 ruby2.2-dev && \
   gem install bundler --no-ri --no-rdoc
-
+gi
 # cleanup
 RUN apt-get -qq -y clean
 
