@@ -1,13 +1,40 @@
-FROM octohost/nodejs
+#
+# https://github.com/subicura/slack_invite_automation_sinatra
+#
+# build command
+# * docker build --force-rm=true -t subicura/slack_invite .
 
-ENV PORT 3000
+FROM ubuntu:14.04
+MAINTAINER pradeepannepu@github.com
 
-ADD . /srv/www
+# update ubuntu latest
+RUN \
+  apt-get -qq update && \
+  apt-get -qq -y dist-upgrade
 
-WORKDIR /srv/www
+# install essential packages
+RUN \
+  apt-get -qq -y install build-essential software-properties-common python-software-properties git
 
-RUN npm install --unsafe-perm
+# install ruby2.2
+RUN \
+  add-apt-repository -y ppa:brightbox/ruby-ng && \
+  apt-get -qq update && \
+  apt-get -qq -y install ruby2.2 ruby2.2-dev && \
+  gem install bundler --no-ri --no-rdoc
 
-EXPOSE 3000
+# cleanup
+RUN apt-get -qq -y clean
 
-CMD ./bin/slackin --channels "$SLACK_CHANNELS" --port $PORT $SLACK_SUBDOMAIN $SLACK_API_TOKEN
+# add sources
+ADD . /app
+
+# add application
+WORKDIR /app
+
+# run bundle
+RUN bundle install --without development test
+
+# run
+EXPOSE 80
+CMD bundle exec ruby server.rb -p 80
